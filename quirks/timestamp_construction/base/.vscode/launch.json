@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  // SETTINGS FROM: https://jestjs.io/docs/troubleshooting and https://jestjs.io/docs/cli
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Jest Debugger",
+      "type": "node",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceFolder}/node_modules/jest-cli/bin/jest",
+        "${fileBasename}",
+        "--runTestsByPath ${file}",
+        "--testMatch ${file}",
+        "--runInBand"
+      ]
+    }
+  ]
+}
