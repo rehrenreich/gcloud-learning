@@ -1,3 +1,5 @@
+import * as OPA from "../../base/src";
+
 export interface IMessageWithDate {
   readonly id: string;
   readonly message: string;
@@ -12,7 +14,7 @@ export interface IMessageWithDate {
  * @return {IMessageWithDate}
  */
 export function createMessageWithDate(id: string, message: string, now: Date | undefined = undefined): IMessageWithDate {
-  now = now ?? new Date();
+  now = now ?? OPA.nowProvider.nowForDate();
   const messageWithDate: IMessageWithDate = {id, message, dateOfCreation: now};
   return messageWithDate;
 }

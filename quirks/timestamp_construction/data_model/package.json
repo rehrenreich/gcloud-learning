@@ -6,8 +6,8 @@
   "license": "MIT",
   "copyright": "Copyright © 2023 Ryan Ehrenreich",
   "keywords": ["firebase", "firestore", "timestamp", "date", "function", "callable", "log", "logger", "cloud", "gcloud."],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/data_model/src/index.js",
+  "types": "lib/data_model/src/index.d.ts",
   "files": ["lib"],
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
