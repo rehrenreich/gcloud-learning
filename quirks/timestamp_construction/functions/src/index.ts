@@ -3,7 +3,9 @@ import * as logger from "firebase-functions/logger";
 import * as admin from "firebase-admin";
 import * as DataModel from "../../data_model/src";
 
-export const saveMessageWithDateFromDataModel = onRequest({cors: false, region: ["us-east1"]},
+const httpsOptions = {cors: false, maxInstances: 2, region: ["us-east1"]};
+
+export const saveMessageWithDateFromDataModel = onRequest(httpsOptions,
   (request, response) => {
     logger.info("saveMessageWithDateFromDataModel(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
@@ -20,7 +22,7 @@ export const saveMessageWithDateFromDataModel = onRequest({cors: false, region: 
   }
 );
 
-export const saveMessageWithDateFromFunctions = onRequest({cors: false, region: ["us-east1"]},
+export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
   (request, response) => {
     logger.info("saveMessageWithDateFromFunctions(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
@@ -38,7 +40,7 @@ export const saveMessageWithDateFromFunctions = onRequest({cors: false, region: 
   }
 );
 
-export const saveMessageWithTimestampFromDataModel = onRequest({cors: false, region: ["us-east1"]},
+export const saveMessageWithTimestampFromDataModel = onRequest(httpsOptions,
   (request, response) => {
     logger.info("saveMessageWithTimestampFromDataModel(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
@@ -55,7 +57,7 @@ export const saveMessageWithTimestampFromDataModel = onRequest({cors: false, reg
   }
 );
 
-export const saveMessageWithTimestampFromFunctions = onRequest({cors: false, region: ["us-east1"]},
+export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
   (request, response) => {
     logger.info("saveMessageWithTimestampFromFunctions(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
