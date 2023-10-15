@@ -1,4 +1,5 @@
 import * as firestore from "@google-cloud/firestore";
+import * as OPA from "../../base/src";
 
 export interface IMessageWithTimestamp {
   readonly id: string;
@@ -14,7 +15,7 @@ export interface IMessageWithTimestamp {
  * @return {IMessageWithTimestamp}
  */
 export function createMessageWithTimestamp(id: string, message: string, now: firestore.Timestamp | undefined = undefined): IMessageWithTimestamp {
-  now = now ?? firestore.Timestamp.now();
+  now = now ?? OPA.nowProvider.nowForTimestamp();
   const messageWithTimestamp: IMessageWithTimestamp = {id, message, dateOfCreation: now};
   return messageWithTimestamp;
 }
