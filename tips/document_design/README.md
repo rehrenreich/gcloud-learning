@@ -1,10 +1,8 @@
 # [GCloud Learning: Document Design](https://github.com/rehrenreich/gcloud-learning/tips/document_design)
 
-Personally, I prefer using TypeScript when implementing Application Tier code in the Google Cloud.
+NOTE: Personally, I prefer using TypeScript when implementing Application Tier code in the Google Cloud, so any code below is in TypeScript.
 
-When I design a Document Type to store in a Firestore database, I use at least two different interfaces.
-
-First, I specify the interface for the actual Document Type (e.g. "User") that I read from the Firestore database.
+When I design a Document Type to store in a Firestore database, I use at least two different interfaces. First, I specify the interface for the actual Document Type (e.g. "User") that I read from the Firestore database.
 
 The Document Type interface should:
 1) ALWAYS include a read-only "id" property that contains the ID used to obtain the Firestore document reference (i.e. the document at "/Users/{id}" should contain an "id" property set to the value of "{id}")
@@ -13,6 +11,7 @@ The Document Type interface should:
 4) USUALLY prefer nullable properties to optional properties (e.g. "myProp1: string | null" )
 5) RARELY or NEVER contain optional properties (e.g. "myProp2?: string")
 
+```
     export interface IUser {
       readonly id: string;
       readonly dateOfCreation: firestore.Timestamp;
@@ -21,6 +20,7 @@ The Document Type interface should:
       // but NOT "myProp2?: string;"
       myProp3: Array<string>;
     }
+```
 
 Specifically, as to point #4, Firestore is really good at querying on properties that ACTUALLY EXIST in all of your documents in the corresponding Firestore collection. But I have encountered situations in the past where the absence of any value (even just "null") in some documents makes querying a Firestore collection much more cumbersome.
 
@@ -36,9 +36,11 @@ The Partial Update Type interface should:
 
 On occasion, point #4 must be violated, and such occasions usually are because it is advanageous to use firestore.FieldValue objects (i.e. arrayRemove, arrayUnion, delete, increment, serverTimestamp) to perform an update on ONLY the data that ACTUALLY changed. Specifically, I prefer to use "arrayRemove" and "arrayUnion" to update elements of an array rather than setting the value of the entire array (which risks overwriting concurrent changes).
 
+```
     export interface IUserPartial {
       // ... other properties
       dateOfLatestUpdate: firestore.Timestamp;
       myProp1?: string | null;
       myProp3?: Array<string> | firestore.FieldValue;
     }
+```
