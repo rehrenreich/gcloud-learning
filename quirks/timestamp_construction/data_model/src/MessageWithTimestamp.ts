@@ -1,4 +1,4 @@
-import * as firestore from "@google-cloud/firestore";
+import {firestore} from "firebase-admin";
 
 export interface IMessageWithTimestamp {
   readonly id: string;

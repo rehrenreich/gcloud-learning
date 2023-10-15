@@ -14,7 +14,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^7.1.0"
+    "firebase-admin": "^11.8.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.0",
