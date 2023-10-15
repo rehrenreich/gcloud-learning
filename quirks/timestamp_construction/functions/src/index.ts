@@ -3,6 +3,7 @@ import * as logger from "firebase-functions/logger";
 import * as admin from "firebase-admin";
 import * as DataModel from "../../data_model/src";
 
+const app = admin.initializeApp();
 const httpsOptions = {cors: false, maxInstances: 2, region: ["us-east1"]};
 
 export const saveMessageWithDateFromDataModel = onRequest(httpsOptions,
@@ -10,13 +11,14 @@ export const saveMessageWithDateFromDataModel = onRequest(httpsOptions,
     logger.info("saveMessageWithDateFromDataModel(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
 
-    const app = admin.initializeApp();
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
     const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithDate(docId, message);
+    docRef.set(messageDoc);
+
     response.send(messageDoc);
     logger.info("saveMessageWithDateFromDataModel(...) COMPLETED", {structuredData: true});
   }
@@ -28,13 +30,14 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
     const now = new Date();
 
-    const app = admin.initializeApp();
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
     const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithDate(docId, message, now);
+    docRef.set(messageDoc);
+
     response.send(messageDoc);
     logger.info("saveMessageWithDateFromFunctions(...) COMPLETED", {structuredData: true});
   }
@@ -45,13 +48,14 @@ export const saveMessageWithTimestampFromDataModel = onRequest(httpsOptions,
     logger.info("saveMessageWithTimestampFromDataModel(...) ENTERED", {structuredData: true});
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
 
-    const app = admin.initializeApp();
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
     const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithTimestamp(docId, message);
+    docRef.set(messageDoc);
+
     response.send(messageDoc);
     logger.info("saveMessageWithTimestampFromDataModel(...) COMPLETED", {structuredData: true});
   }
@@ -63,13 +67,14 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
     const message = (request.query.message) ? (request.query.message as string) : "Test Message";
     const now = admin.firestore.Timestamp.now();
 
-    const app = admin.initializeApp();
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
     const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithTimestamp(docId, message, now);
+    docRef.set(messageDoc);
+
     response.send(messageDoc);
     logger.info("saveMessageWithTimestampFromFunctions(...) COMPLETED", {structuredData: true});
   }
