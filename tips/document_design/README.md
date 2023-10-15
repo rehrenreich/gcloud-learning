@@ -44,3 +44,5 @@ On occasion, point #4 must be violated, and such occasions usually are because i
       myProp3?: Array<string> | firestore.FieldValue;
     }
 ```
+
+Copyright © 2023 Ryan Ehrenreich
