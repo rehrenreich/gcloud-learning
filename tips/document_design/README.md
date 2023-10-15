@@ -22,7 +22,7 @@ The Document Type interface should:
     }
 ```
 
-Specifically, as to point #4, Firestore is really good at querying on properties that ACTUALLY EXIST in all of your documents in the corresponding Firestore collection. But I have encountered situations in the past where the absence of any value (even just "null") in some documents makes querying a Firestore collection much more cumbersome.
+Specifically, as to points #4 and #5, Firestore is really good at querying on properties that ACTUALLY EXIST in all of your documents in the corresponding Firestore collection. But I have encountered situations in the past where the absence of any value (even just "null") in some documents makes querying a Firestore collection much more cumbersome.
 
 For each Document Type interface, I also implement at least one factory function that takes the arguments necessary to construct a document of the corresponding type and returns the constructed document (a plain JS object containing the properties specified in the Document Type interface).
 
