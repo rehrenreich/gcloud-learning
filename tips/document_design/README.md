@@ -24,7 +24,7 @@ The Document Type interface should:
 
 Specifically, as to point #4, Firestore is really good at querying on properties that ACTUALLY EXIST in all of your documents in the corresponding Firestore collection. But I have encountered situations in the past where the absence of any value (even just "null") in some documents makes querying a Firestore collection much more cumbersome.
 
-For each Document Type interface, I also implement at least one factory function that takes the arguments necessary to construct a document of the corresponding type and returns the constructed document (a plain JS object contain the properties specified in the Document Type interface).
+For each Document Type interface, I also implement at least one factory function that takes the arguments necessary to construct a document of the corresponding type and returns the constructed document (a plain JS object containing the properties specified in the Document Type interface).
 
 With that said, for each Document Type that I intend to be updateable (which is most of them), I also specify a Partial Update Type interface. I use the Partial Update Type to create the objects that I use to update ONLY the information that has ACTUALLY changed for the corresponding document, using "collectionRef.set(partialObj, {merge: true})" or "collectionRef.update(partialObj)" to store the updated property values.
 
@@ -34,7 +34,7 @@ The Partial Update Type interface should:
 3) RARELY specify properties as required (e.g. "dateOfLatestUpdate" is one of few fields that I require for each update)
 4) ALMOST ALWAYS use the same type for the property as the corresponding property in the Document Type interface
 
-On occasion, point #4 must be violated, and such occasions usually are because it is advanageous to use firestore.FieldValue objects (i.e. arrayRemove, arrayUnion, delete, increment, serverTimestamp) to perform an update on ONLY the data that ACTUALLY changed. Specifically, I prefer to use "arrayRemove" and "arrayUnion" to update elements of an array rather than setting the value of the entire array (which risks overwriting concurrent changes).
+On occasion, point #4 must be violated, and such occasions usually are because it is advantageous to use firestore.FieldValue objects (i.e. arrayRemove, arrayUnion, delete, increment, serverTimestamp) to perform an update on ONLY the data that ACTUALLY changed. Specifically, I prefer to use "arrayRemove" and "arrayUnion" to update elements of an array rather than setting the value of the entire array (which risks overwriting concurrent changes).
 
 ```
     export interface IUserPartial {
