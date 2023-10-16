@@ -18,3 +18,6 @@ export function createMessageWithDate(id: string, message: string, now: Date | u
   const messageWithDate: IMessageWithDate = {id, message, dateOfCreation: now};
   return messageWithDate;
 }
+
+export type MessageWithDateFactoryFunc = (...[params]: Parameters<typeof createMessageWithDate>) => ReturnType<typeof createMessageWithDate>;
+export const MessageWithDateCollectionDescriptor = new OPA.CollectionDescriptor<IMessageWithDate, OPA.QuerySet<IMessageWithDate>, MessageWithDateFactoryFunc>("MessageWithDate", "MessagesWithDates", false, (cd) => new OPA.QuerySet<IMessageWithDate>(cd), undefined, undefined, createMessageWithDate); // eslint-disable-line max-len
