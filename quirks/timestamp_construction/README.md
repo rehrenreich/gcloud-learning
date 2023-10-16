@@ -22,7 +22,7 @@ So this example deploys four (4) total Firebase HTTP Functions:
   3) Function where... Timestamp stores date-time, "now" constructed in "data_model" using "firestore"
   4) Function where... Timestamp stores date-time, "now" constructed in "functions" using "admin"
 
-After explaining how to deploy these HTTP Functions, I will ask that you run these functions as constructed, observe the result, then make a small change, redploy these functions, and observe the difference in the resulting output.
+After explaining how to deploy these HTTP Functions, I will ask that you run these functions as constructed, observe the result, then make a small change, redeploy these functions, and observe the difference in the resulting output.
 
 But before you can run these functions, we must make sure that you are properly setup to do so...
 
