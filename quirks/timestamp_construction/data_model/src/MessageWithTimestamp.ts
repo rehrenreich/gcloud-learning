@@ -5,13 +5,6 @@ export interface IMessageWithTimestamp {
   readonly id: string;
   readonly message: string;
   readonly dateOfCreation: firestore.Timestamp;
-  readonly dateOfCreations: Array<firestore.Timestamp>;
-  readonly arbitraryObj: {
-    nestedArbitraryObj: {
-      dateOfCreation: firestore.Timestamp;
-      dateOfCreations: Array<firestore.Timestamp>;
-    }
-  }
 }
 
 /**
@@ -28,16 +21,6 @@ export function createMessageWithTimestamp(id: string, message: string, now: fir
     id,
     message,
     dateOfCreation: now,
-    dateOfCreations: [now],
-    arbitraryObj: {
-      nestedArbitraryObj: {
-        dateOfCreation: now,
-        dateOfCreations: [now],
-      },
-    },
   };
   return messageWithTimestamp;
 }
-
-export type MessageWithTimestampFactoryFunc = (...[params]: Parameters<typeof createMessageWithTimestamp>) => ReturnType<typeof createMessageWithTimestamp>;
-export const MessageWithTimestampCollectionDescriptor = new OPA.CollectionDescriptor<IMessageWithTimestamp, OPA.QuerySet<IMessageWithTimestamp>, MessageWithTimestampFactoryFunc>("MessageWithTimestamp", "MessagesWithTimestamps", false, (cd) => new OPA.QuerySet<IMessageWithTimestamp>(cd), undefined, undefined, createMessageWithTimestamp); // eslint-disable-line max-len
