@@ -1,4 +1,4 @@
-# [GCloud Learning: Document Design](https://github.com/rehrenreich/gcloud-learning/tips/document_design)
+# [GCloud Learning - Tips: Document Design](https://github.com/rehrenreich/gcloud-learning/tips/document_design)
 
 NOTE: Personally, I prefer using TypeScript when implementing Application Tier code in the Google Cloud, so any code below is in TypeScript.
 
