@@ -19,6 +19,6 @@ Personally, I really like the Google Cloud suite of products and I am very happy
 
 Thank you and good luck!
 
-_Ryan Ehrenreich_
+**_Ryan Ehrenreich_**
 
 Copyright © 2023 Ryan Ehrenreich
