@@ -95,5 +95,10 @@ As for my perspective, if you read the root [README](https://github.com/rehrenre
 
 So you can see some of my thoughts on this matter in the code at [Open Personal Archive™](https://github.com/vkehren/open-personal-archive) if you wish.
 
+## Step 6) Extra Challenge
+
+I purposely left out the "await" and "async" keywords that I would normally add so the code is more readable to someone starting out, as I do not believe those keywords should affect the proper working of this specific example.
+
+If you want an extra challenge identify the four places that the "async" keyword should be used and identify the four places that the "await" keyword should be used.
 
 Copyright © 2023 Ryan Ehrenreich
