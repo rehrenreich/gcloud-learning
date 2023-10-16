@@ -5,6 +5,13 @@ export interface IMessageWithTimestamp {
   readonly id: string;
   readonly message: string;
   readonly dateOfCreation: firestore.Timestamp;
+  readonly dateOfCreations: Array<firestore.Timestamp>;
+  readonly arbitraryObj: {
+    nestedArbitraryObj: {
+      dateOfCreation: firestore.Timestamp;
+      dateOfCreations: Array<firestore.Timestamp>;
+    }
+  }
 }
 
 /**
@@ -16,7 +23,19 @@ export interface IMessageWithTimestamp {
  */
 export function createMessageWithTimestamp(id: string, message: string, now: firestore.Timestamp | undefined = undefined): IMessageWithTimestamp {
   now = now ?? OPA.nowProvider.nowForTimestamp();
-  const messageWithTimestamp: IMessageWithTimestamp = {id, message, dateOfCreation: now};
+  message += " on " + now.toDate().toUTCString();
+  const messageWithTimestamp: IMessageWithTimestamp = {
+    id,
+    message,
+    dateOfCreation: now,
+    dateOfCreations: [now],
+    arbitraryObj: {
+      nestedArbitraryObj: {
+        dateOfCreation: now,
+        dateOfCreations: [now],
+      },
+    },
+  };
   return messageWithTimestamp;
 }
 

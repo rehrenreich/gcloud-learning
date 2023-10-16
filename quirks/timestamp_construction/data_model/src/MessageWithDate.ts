@@ -4,6 +4,13 @@ export interface IMessageWithDate {
   readonly id: string;
   readonly message: string;
   readonly dateOfCreation: Date;
+  readonly dateOfCreations: Array<Date>;
+  readonly arbitraryObj: {
+    nestedArbitraryObj: {
+      dateOfCreation: Date;
+      dateOfCreations: Array<Date>;
+    }
+  }
 }
 
 /**
@@ -15,7 +22,19 @@ export interface IMessageWithDate {
  */
 export function createMessageWithDate(id: string, message: string, now: Date | undefined = undefined): IMessageWithDate {
   now = now ?? OPA.nowProvider.nowForDate();
-  const messageWithDate: IMessageWithDate = {id, message, dateOfCreation: now};
+  message += " on " + now.toUTCString();
+  const messageWithDate: IMessageWithDate = {
+    id,
+    message,
+    dateOfCreation: now,
+    dateOfCreations: [now],
+    arbitraryObj: {
+      nestedArbitraryObj: {
+        dateOfCreation: now,
+        dateOfCreations: [now],
+      },
+    },
+  };
   return messageWithDate;
 }
 
