@@ -2,6 +2,8 @@
 
 NOTE: In the process of deploying the following example, you will familiarize yourself with the Web UIs for [Firebase](https://console.firebase.google.com/u/0/), [Cloud Functions](https://console.cloud.google.com/functions/), [Cloud Run](https://console.cloud.google.com/run/), [Firestore](https://console.cloud.google.com/firestore/), and [Logs Explorer](https://console.cloud.google.com/logs/).
 
+This project is intended to help get a new developer get up to speed quickly on building software to run in the Google Cloud and raise their awareness about a particular issue that might eventually trip them up if they are not aware of it. Much of the code does not 100% reflect how I would actually build software because I actively try to reduce the lines of code to the bare minimum necessary to explain the point that I am trying to make. For code more representative of how I build software, you can see [Open Personal Archive™ codebase](https://github.com/vkehren/open-personal-archive/tree/main/code/), but before doing so, I recommend reviewing all the information in this GitHub repository.
+
 The example I provide here covers a specific case of a wider issue that developers should be aware of, in case they encounter an error message such as:
 
 ```
@@ -46,9 +48,13 @@ By choosing the region upfront, it is easier to ensure that your Firestore datab
 
 After you have created your Firestore database, I recommend navigating to [Google Cloud Console for Firestore](https://console.cloud.google.com/firestore/) and familiarizing yourself with the extended tools offered there.
 
+Additionally, I advise you to go back to the Firebase "Firestore Database" page that you used above to create your Firestore database, explore what it offers, consider the relative strengths and weaknesses of the two different Firestore pages, and find the link to the Google Cloud Console for Firestore that is located within the Firebase Firestore page.
+
 ## Step 3) Deploy and Configure the Firebase HTTP Functions
 
 First, make sure you have installed Firebase Tools using the global option (i.e. "npm install -g firebase-tools"). Once you have done so, run "firebase login" to allow Firebase Tools to update your project. Also, if you already had Firebase Tools installed, you will probably need to run "firebase use [YOUR_PROJECT_NAME]" to set the correct current project.
+
+Also, before deployig, you should set the "region" property of the "httpsOptions" object in "./src/index.ts" to the region where you created your Firestore database in Step 2 above.
 
 Next, from the root directory for this project (i.e. "timestamp_construction"), run "firebase deploy --only functions" and verify that all four functions have deployed properly (the script will clearly state whether it has encountered errors). If there are any errors during deployment, in the process of running this command, Firebase Tools will save a debug log locally in the directory from which the deploy command was run.
 
@@ -95,10 +101,30 @@ As for my perspective, if you read the root [README](https://github.com/rehrenre
 
 So you can see some of my thoughts on this matter in the code at [Open Personal Archive™](https://github.com/vkehren/open-personal-archive) if you wish.
 
-## Step 6) Extra Challenge
+## Step 6) Extra Challenge 1: async and await
 
-I purposely left out the "await" and "async" keywords that I would normally add so the code is more readable to someone starting out, as I do not believe those keywords should affect the proper working of this specific example.
+I purposely left out the "async" and "await" keywords that I would normally add so the code is more readable to someone starting out, as I do not believe those keywords should affect the proper working of this specific example.
 
-If you want an extra challenge identify the four places that the "async" keyword should be used and identify the four places that the "await" keyword should be used.
+If you want an extra challenge, identify the four places that the "async" keyword should be used and identify the four places that the "await" keyword should be used.
+
+## Step 7) Extra Challenge 2: try... catch... finally
+
+I also purposely left out the "try... catch... finally" statement that I would normally add so the code is more readable to someone starting out, as the Logs Explorer should show the error that you need to see automatically whenever a call fails.
+
+If you want another challenge, identify the four places that "try... catch... finally" statements should be used, as well as any code you feel should be placed inside the "catch" and "finally" blocks.
+
+## Step 8) Extra Challenge 3: add, set, and update
+
+I also used "docRef.set(myDoc)" to update the Firestore database because I have a planned extension to this exercise in mind that will require you to explore a little more about what that statement actually does.
+
+If you want another challenge, reseach the "add", "set", and "update" functions (see https://firebase.google.com/docs/firestore/manage-data/add-data) and try to form your own opinion of when each should be used.
+
+## Step 8) Extra Challenge 4 (for Later)
+
+As an aside, when I build software, I encapsulate the usage of the "add", "set", and "update" functions two layers down from the actual Firebase Functions code, so that which of these fuctions is used is hidden from the calling code up a layer.
+
+However, a task I have in mind for later (do not worry about it right now) is to download the [Open Personal Archive™ codebase](https://github.com/vkehren/open-personal-archive/tree/main/code/), create a Firebase project to which to deploy that codebase for yourself, configure the project and authentication fields in that codebase to match the values necessary for your project, and then run the unit tests and make sure that all of the unit tests pass (one "domainlogic" test may occassionally fail due to "close()" being called multiple times on "bulkWriter", but if you experience that, don't worry about that specific one failing). Once you have done this, I would ask you to review all calls to "add", "set", or "update" on Firestore collections and recommend any changes or additions you think would be beneficial. But before you do, I would ask you to implement those changes in your local copy of the codebase and make sure that the unit tests still pass afterward.
+
+Goodluck! Hope this is exercise is useful to you!
 
 Copyright © 2023 Ryan Ehrenreich
