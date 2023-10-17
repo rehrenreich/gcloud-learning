@@ -4,13 +4,6 @@ export interface IMessageWithDate {
   readonly id: string;
   readonly message: string;
   readonly dateOfCreation: Date;
-  readonly dateOfCreations: Array<Date>;
-  readonly arbitraryObj: {
-    nestedArbitraryObj: {
-      dateOfCreation: Date;
-      dateOfCreations: Array<Date>;
-    }
-  }
 }
 
 /**
@@ -27,16 +20,6 @@ export function createMessageWithDate(id: string, message: string, now: Date | u
     id,
     message,
     dateOfCreation: now,
-    dateOfCreations: [now],
-    arbitraryObj: {
-      nestedArbitraryObj: {
-        dateOfCreation: now,
-        dateOfCreations: [now],
-      },
-    },
   };
   return messageWithDate;
 }
-
-export type MessageWithDateFactoryFunc = (...[params]: Parameters<typeof createMessageWithDate>) => ReturnType<typeof createMessageWithDate>;
-export const MessageWithDateCollectionDescriptor = new OPA.CollectionDescriptor<IMessageWithDate, OPA.QuerySet<IMessageWithDate>, MessageWithDateFactoryFunc>("MessageWithDate", "MessagesWithDates", false, (cd) => new OPA.QuerySet<IMessageWithDate>(cd), undefined, undefined, createMessageWithDate); // eslint-disable-line max-len
