@@ -13,7 +13,7 @@ export const saveMessageWithDateFromDataModel = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
-    const docRef = (request.query.id) ? colRef.doc(request.query.id as string) : colRef.doc();
+    const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithDate(docId, message);
@@ -32,7 +32,7 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
-    const docRef = (request.query.id) ? colRef.doc(request.query.id as string) : colRef.doc();
+    const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithDate(docId, message, now);
@@ -50,7 +50,7 @@ export const saveMessageWithTimestampFromDataModel = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
-    const docRef = (request.query.id) ? colRef.doc(request.query.id as string) : colRef.doc();
+    const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithTimestamp(docId, message);
@@ -69,7 +69,7 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const colRef = db.collection("Messages");
-    const docRef = (request.query.id) ? colRef.doc(request.query.id as string) : colRef.doc();
+    const docRef = colRef.doc();
     const docId = docRef.id;
 
     const messageDoc = DataModel.createMessageWithTimestamp(docId, message, now);

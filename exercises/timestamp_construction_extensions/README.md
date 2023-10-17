@@ -4,7 +4,9 @@ Before beginning the exercises that follow, you should first complete the steps 
 
 After you have done so, save whatever edits you made to the files in that codebase by commiting them to a branch (if you are using Git) or adding them to a zip file. Then revert your source code files for that project to the original state that they were in when you downloaded or cloned from the "GCloud Learning" GitHub repository.
 
-Now you are ready to begin the following extensions based on the original state of the codebase for that quirk.
+Next, add the four "await" operators and four "async" keywords that should exist the "index.ts" file in the "functions" package. Your two Document Type files and your Firebase HTTP Functions file (namely, "index.ts" in the "functions" package) should resemble the three files [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/at_start)).
+
+Once that it is so, you are ready to begin implementing the following extensions.
 
 ## Extension 1) Add an "id" value to the HTTP Function query string
 
@@ -52,7 +54,9 @@ To resolve this, add a fourth property initializer that sets the "datesOfUpdates
 
 Next, run "firebase deploy --only functions" to redeploy the Firebase HTTP Functions. Your functions should redeploy correctly.
 
-Finally, re-run each function by refreshing the corresponding browser pages. After doing so, in both the Firestore database and the browers pages, you should see an array named "datesOfUpdates" that ONLY ever contains one element (i.e. an element with the same value as "dateOfCreation", but inside of an array). Moreover, every time you refresh the tab, the entire contents of the "datesOfUpdates" array should be overritten.
+Finally, re-run each function by refreshing the corresponding browser pages. After doing so, in both the Firestore database and the browers pages, you should see an array named "datesOfUpdates" that ONLY ever contains one element (i.e. an element with the same value as "dateOfCreation", but inside of an array). 
+
+Moreover, every time you refresh the tab, the entire contents of the "datesOfUpdates" array should be overritten and the "dateOfCreation" should be reset to the newest possible value. This is because your code now maintains the "id" value across calls, but the entire document is actually being overritten on every call. Obviously, this behavior is not ideal, but we will fix it in the subsequent extensions below.
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_02).
 
