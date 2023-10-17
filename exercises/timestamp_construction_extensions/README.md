@@ -14,13 +14,13 @@ Currently, each of the four Firebase HTTP Functions exported from the "functions
 const docRef = colRef.doc();
 ```
 
-In order to use the "id" value from the query string, if such a value exists, those lines of code should be changed to use the "id" value if it is present to obtain a reference to an existing Document, and otherwise to create a new Document reference as the code does now.
+In order to use the "id" value from the query string, if such a value exists, those lines of code should be changed to use the "id" value, if it is present, to obtain a reference to an existing Document, and otherwise to create a new Document reference as the code does now.
 
 After implementing this change, run "firebase deploy --only functions" to redeploy the Firebase HTTP Functions.
 
 Next, record the existing number of Documents currently present in the "Messages" Collection in your Firestore database. You can even write a query to obtain this count, if you desire.
 
-Next, in your browser tabs where you run the HTTP Functions, click the the address bar to edit the current URL. Then append "?id=[THE_ID_VALUE_DISPLAYED_IN_THE_RESULT_OF_YOUR_PREVIOUS_CALL] to the query string in the address bar. For example, in the results from your prior run of "saveMessageWithTimestampFromDataModel", copy the "id" value in the JSON data that is displayed in your browser tab and, after you add "?id=" to the end of the string in the address bar, paste that value there, as well.
+Next, in your browser tabs where you run the HTTP Functions, click the the address bar to edit the current URL. Then append "?id=[THE_ID_VALUE_DISPLAYED_IN_THE_RESULT_OF_YOUR_PREVIOUS_CALL]" to the query string in the address bar. For example, in the results from your prior run of "saveMessageWithTimestampFromDataModel", copy the "id" value in the JSON data that is displayed in your browser tab and, after you add "?id=" to the end of the string in the address bar, paste that value there, as well.
 
 Now, re-run your function and check that the number of Documents in the "Messages" Collection is the same as it was before you re-ran your function.
 
