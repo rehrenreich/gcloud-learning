@@ -44,7 +44,7 @@ and the construction code for instances of those Document Types contains three i
     dateOfCreation: now,
 ```
 
-To the first list, please add a fourth property named "datesOfUpdates" that is of type "Array<Date>" (or "Array<firestore.Timestamp>" for IMessageWithTimestamp).
+To the first list, please add a fourth property named "datesOfUpdates" that is of type "Array\<Date\>" (or "Array<firestore.Timestamp>" for IMessageWithTimestamp).
 
 After you do so, you should see your IDE (I use Visual Studio Code) complain that you are no longer initializing the complete set of properties in the construction code.
 
