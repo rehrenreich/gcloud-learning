@@ -25,7 +25,7 @@ export const saveMessageWithDateFromDataModel = onRequest(httpsOptions,
         message: message + " on " + now.toUTCString(),
         datesOfUpdates: admin.firestore.FieldValue.arrayUnion(now),
       };
-      await docRef.update(messageDoc as Record<string, unknown>);
+      await docRef.update(messageDoc);
     } else {
       messageDoc = DataModel.createMessageWithDate(docId, message);
       await colRef.add(messageDoc);
@@ -55,7 +55,7 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
         message: message + " on " + now.toUTCString(),
         datesOfUpdates: admin.firestore.FieldValue.arrayUnion(now),
       };
-      await docRef.update(messageDoc as Record<string, unknown>);
+      await docRef.update(messageDoc);
     } else {
       messageDoc = DataModel.createMessageWithDate(docId, message);
       await colRef.add(messageDoc);
@@ -85,7 +85,7 @@ export const saveMessageWithTimestampFromDataModel = onRequest(httpsOptions,
         message: message + " on " + now.toDate().toUTCString(),
         datesOfUpdates: admin.firestore.FieldValue.arrayUnion(now),
       };
-      await docRef.update(messageDoc as Record<string, unknown>);
+      await docRef.update(messageDoc);
     } else {
       messageDoc = DataModel.createMessageWithTimestamp(docId, message);
       await colRef.add(messageDoc);
@@ -115,7 +115,7 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
         message: message + " on " + now.toDate().toUTCString(),
         datesOfUpdates: admin.firestore.FieldValue.arrayUnion(now),
       };
-      await docRef.update(messageDoc as Record<string, unknown>);
+      await docRef.update(messageDoc);
     } else {
       messageDoc = DataModel.createMessageWithTimestamp(docId, message);
       await colRef.add(messageDoc);
