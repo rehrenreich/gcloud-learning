@@ -76,4 +76,58 @@ Finally, re-run each function by refreshing the corresponding browser pages. Aft
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_03).
 
+## Extension 4) Use "delete" operator to remove properties from object that will be passed to "set"
+
+The remainder to the extensions in this README address ways to ONLY update the property values in the database that we actually want to change. To be specific, for the remaining extensions, let us assume that our requirements have changed and that we want the "message" field to be updateable, but we do not want "id" or "dateOfCreation" fields to be updateable.
+
+The first option for doing so is in my view the most brute-force and the least desirable.
+
+Before getting to better options, please try to use the "delete" operator (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete) to remove the properties from the constructed object prior to calling "set" that we do not wish to change when the Document already exists in the database (i.e. call "delete" on "id" and "dateOfCreation" prior to caling "set" if a Document corresponding to the "id" already exists in the database).
+
+For this Extension, please re-deploy your code and check that your solution works.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_04).
+
+## Extension 5) Pass object created inline with only the desired properties to "set"
+
+In this extension, we will start to explore more graceful options than brute-force deleting fields from a typed object (which is, in my view, almost never a good way to solve a problem).
+
+Please try to create an the "object initializer" syntax (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer) to create an new object containing only the properties that we wish to be updateable. After you do so, if you look at the type of your new object, you will see that the TypeScript compiler gives it a type which is composed of the property values that it contains, which is, in my opinion, a nice feature of TypeScript.
+
+Also, since we are now using two different object to perform Firestore database updates depending on whether a corresponding Document already exists, please use "add" when you are passing the object that does not already exist, and please use set when you are passing the object that already exists.
+
+For this Extension, please re-deploy your code and check that your solution works.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_05).
+
+## Extension 6) Same as Extension 5, but replace "set" with "update"
+
+In this extension, you will use the code for the previous extension, but as you have already separated calls that produce new Documents in the Firestore database from calls that perform updates on Documents that already exist in the Firestore database, now is a great opportunity to use "update" instead of "set" to perform the updates, so please do that.
+
+Do any new challenges arise? If so, figure out how to solve them.
+
+For this Extension, please re-deploy your code and check that your solution works.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_06).
+
+## Extension 7) Use separate interface type for "complete" object and "partial update" object
+
+To me, it was nice of TypeScript to provide some auto-generated type for the update object that we created in the prior two extensions, but the TypeScript compiler cannot read your mind, so often, it is preferrable to explicitly define an interface type yourself, rather than depending on the TypeScript compiler to do so.
+
+So I ask that you apply the guidance I have shared [here](https://github.com/rehrenreich/gcloud-learning/tree/main/tips/document_design) to define two separate interfaces, one for reading or writing the complete Document, and one for performing partial updates.
+
+For this Extension, please re-deploy your code and check that your solution works.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_07).
+
+## Extension 8) Same as Extension 7, but replace "set" with "update"
+
+Similar to Extension 6, in this extension, you will use the code for the previous extension, but use "update" instead of "set" to perform the updates, so please do that.
+
+If any new challenges did arise in Extension 6, please consider whether there is a more graceful way you can address them in this Extension, and if you think of a way, please try to implement it in your solution to this Extension.
+
+For this Extension, please re-deploy your code and check that your solution works.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_08).
+
 Copyright © 2023 Ryan Ehrenreich
