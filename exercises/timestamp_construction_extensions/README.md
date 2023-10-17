@@ -130,4 +130,10 @@ For this Extension, please re-deploy your code and check that your solution work
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_08).
 
+## Extension 9) Now do the "Extra Challenge 4 (for Later)" that I mentioned in the Timestamp Construction Exercise
+
+Now that you have developed your expertise in "add", "merge", and "set", you are ready to perform that extra challenge that I mentioned earlier, if you so desire.
+
+If you wish, as a refresher, please re-read that extra challege at the end of the [Timestamp Construction README](https://github.com/rehrenreich/gcloud-learning/tree/main/quirks/timestamp_construction).
+
 Copyright © 2023 Ryan Ehrenreich
