@@ -103,13 +103,13 @@ So you can see some of my thoughts on this matter in the code at [Open Personal 
 
 ## Step 6) Extra Challenge 1: async and await
 
-I purposely left out the "async" and "await" keywords that I would normally add so the code is more readable to someone starting out, as I do not believe those keywords should affect the proper working of this specific example.
+I purposely left out the "async" and "await" keywords (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function and https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) that I would normally add so the code is more readable to someone starting out, as I do not believe those keywords should affect the proper working of this specific example.
 
 If you want an extra challenge, identify the four places that the "async" keyword should be used and identify the four places that the "await" keyword should be used.
 
 ## Step 7) Extra Challenge 2: try... catch... finally
 
-I also purposely left out the "try... catch... finally" statement that I would normally add so the code is more readable to someone starting out, as the Logs Explorer should show the error that you need to see automatically whenever a call fails.
+I also purposely left out the "try... catch... finally" statement (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) that I would normally add so the code is more readable to someone starting out, as the Logs Explorer should show the error that you need to see automatically whenever a call fails.
 
 If you want another challenge, identify the four places that "try... catch... finally" statements should be used, as well as any code you feel should be placed inside the "catch" and "finally" blocks.
 
