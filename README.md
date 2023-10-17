@@ -1,6 +1,6 @@
 # [GCloud Learning](https://github.com/rehrenreich/gcloud-learning)
 
-This repository contains lessons, tips, tricks, and quirks I would like to share based on my past experience using Firebase and other Google Cloud products.
+This repository contains tips, tricks, quirks, and exercises I would like to share based on my past experience using Firebase and other Google Cloud products.
 
 Much of this learning has come through my development efforts for the [Open Personal Archive™](https://github.com/vkehren/open-personal-archive) project, of which I am the main contributor. Please note, the organization and structure of the Open Personal Archive™ codebase demonstrates my general approach to building applications using enterprise application architecture (aka tiered architecture), but specifically applied to the products and technologies offered through the Google Cloud.
 
