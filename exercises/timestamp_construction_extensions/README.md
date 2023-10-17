@@ -60,4 +60,20 @@ Moreover, every time you refresh the tab, the entire contents of the "datesOfUpd
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_02).
 
+## Extension 3) Use firestore.FieldValue.arrayUnion to append values to "datesOfUpdates"
+
+In order to resolve the issue where the entire "datesOfUpdates" array is being overritten on each call, we will use FieldValues to solve this. FieldValues are basically objects that signal to the Firestore serializer to do some type of partial update from within the Data Tier (inside the Google code for Firestore itself).
+
+So for our "datesOfUpdates" properties in our Document Types, for the type "Array&lt;Date&gt;", change this to "Array&lt;Date&gt; | firestore.FieldValue", and for the type "Array&lt;firestore.Timestamp&gt;" change this to "Array&lt;firestore.Timestamp&gt; | firestore.FieldValue". Doing so signals to the TypeScript compiler that the value that the "datesOfUpdates" property can be assigned to a value that is EITHER an array of dates OR a FieldValue.
+
+Next, in your initializers for the "datesOfUpdates" properties, instead of setting these properties to arrays containing the "now" value, instead set these properties to "firestore.FieldValue.arrayUnion(now)".
+
+Next, we have one more step that we must implement in order for the FieldValues to have the effect that we desire. Namely, we must enable our calls to "set(...)" to merge the new data into the old data. To accomplish, pass {merge: true} as the second argument to the set function.
+
+Next, run "firebase deploy --only functions" to redeploy the Firebase HTTP Functions. Your functions should redeploy correctly.
+
+Finally, re-run each function by refreshing the corresponding browser pages. After doing so, you should see that the "dateOfCreation" property is still being overritten (because we have not fixed that issue yet) and you should see what appears to be the same behavior for the "datesOfUpdates" property. But if you go to the Cloud Console for Firestore and look at the actual data that is stored, you will see that "datesOfUpdates" now contains an ever-growing list of date values, with a new date value added each time you re-run the corresponding HTTP Function.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_03).
+
 Copyright © 2023 Ryan Ehrenreich
