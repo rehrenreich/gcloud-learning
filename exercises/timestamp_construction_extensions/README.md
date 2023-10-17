@@ -52,7 +52,7 @@ To resolve this, add a fourth property initializer that sets the "datesOfUpdates
 
 Next, run "firebase deploy --only functions" to redeploy the Firebase HTTP Functions. Your functions should redeploy correctly.
 
-Finally, re-run each function by refreshing the corresponding browser pages. After doing so, in both the Firestore database and the browers pages, you should see an array named "datesOfUpdates" that ONLY ever contains one element (i.e. an element with the same value as "dateOfCreation", but inside of an array).
+Finally, re-run each function by refreshing the corresponding browser pages. After doing so, in both the Firestore database and the browers pages, you should see an array named "datesOfUpdates" that ONLY ever contains one element (i.e. an element with the same value as "dateOfCreation", but inside of an array). Moreover, every time you refresh the tab, the entire contents of the "datesOfUpdates" array should be overritten.
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions/extension_02).
 
