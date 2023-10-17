@@ -23,8 +23,8 @@
     "node": "18"
   },
   "dependencies": {
-    "firebase-admin": "^11.8.0",
-    "firebase-functions": "^4.3.1",
+    "firebase-admin": "11.8.0",
+    "firebase-functions": "4.3.1",
     "jest-get-type": "^27.3.1"
   },
   "devDependencies": {
