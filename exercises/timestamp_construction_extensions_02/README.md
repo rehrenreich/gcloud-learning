@@ -1,6 +1,6 @@
 # [GCloud Learning - Exercises: Timestamp Construction Extensions, Part 2](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02)
 
-The exercises that follow assume you have complete both the [Timestamp Construction Quirk](https://github.com/rehrenreich/gcloud-learning/tree/main/quirks/timestamp_construction) and [Timestamp Construction Extensions, Part 1](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions) exercises. If you have not completed those exercises, please do so before continuing.
+The exercises that follow assume you have completed both the [Timestamp Construction Quirk](https://github.com/rehrenreich/gcloud-learning/tree/main/quirks/timestamp_construction) and [Timestamp Construction Extensions, Part 1](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions) exercises. If you have not completed those exercises, please do so before continuing.
 
 You probably noticed that the first set of extensions focused on the Document. It addressed matters such as how to design the interface for a Document Type and how to create and update a Document stored in a Firestore database. That is why those extensions are in Part 1.
 
@@ -32,14 +32,16 @@ In a different Document Database other than Firestore, a programmer might think 
 
 Why is this a more powerful way of thinking?
 
-Well, all Document Databases have a maximum size limit for how much data they can store in an individual Document. Beyond this limit, developers have some EXTREMELY HACKY tricks for splitting a single "conceptual document" across multiple "actually stored documents". And Firestore has one of the smallest maximum size limits of all Document Databases, so if you think this way, by using Firestore, you are using one of the worst Document Databases available.
+Well, all Document Databases have a maximum size limit for how much data they can store in an individual Document. Beyond this limit, developers have some EXTREMELY HACKY tricks for splitting a single "conceptual document" across multiple "actually stored documents". And Firestore has one of the smallest maximum size limits of all Document Databases, so if you think in terms of "storing documents in collections", by using Firestore, you are using one of the worst Document Databases available.
 
-But as I said, Firestore is the BEST Document Database available... Because it is not a Document Database... Because we are "addressing information™" instead of "storing documents"... So when you and I encounter such a problem where our Document is growing close to the maximum size limit, we figure out what design decision led to these massively inflating document sizes... And then if it is a "real data issue" (i.e. not a "storing files as data" issue)... Then we start breaking our document data up into sub-documents in a sensible, well designed manner, where we address the sub-documents using paths of the form "[MY_FIRESTORE_DB_ROOT]/Messages/XYZ/MessageParts/123". THIS IS NOT HACKY... THIS IS GOOD DESIGN!
+But as I said, Firestore is the BEST Document Database available... Because it is not a Document Database... Because we are "addressing information™" instead of "storing documents"... So when you and I encounter such a problem where our Document is growing close to the maximum size limit, we figure out what design decision led to these massively inflating document sizes... And then if it is a "real data issue" (i.e. not a "storing files as data" issue)... Then we start breaking our document data up into sub-documents in a sensible, well-designed manner, where we address the sub-documents using paths of the form "[MY_FIRESTORE_DB_ROOT]/Messages/XYZ/MessageParts/123". THIS IS NOT HACKY... THIS IS GOOD DESIGN!
 
 If you experience this, then you will have a CollectionReference for "MessageParts" that has the id "MessageParts", the path "/Messages/XYZ/MessageParts" and has a parent DocumentReference of "XYZ".
 
 So if we encounter this issue, we do not worry... We just "address information" as nested under other information by creating sub-documents. But all of our sub-documents will descend from a single root document, so our conceptual model will still maintain fidelity with the way we actually store the information... Which is far superior to trying to hack-out multiple documents in the same collection that contain all the information that should be in a single document.
 
 I hope this convinces you that Firestore is the best Document Database to use! So if Google Cloud ever charges you any money (which in my experience, is unlikely, at least during development), just consider that money well spent!
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_01).
 
 Copyright © 2023 Ryan Ehrenreich
