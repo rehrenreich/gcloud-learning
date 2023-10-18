@@ -132,6 +132,7 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
 export const readMessages = onRequest(httpsOptions,
   async (request, response) => {
     logger.info("readMessages(...) ENTERED", {structuredData: true});
+    const now = admin.firestore.Timestamp.now();
 
     const db = admin.firestore(app);
     const colRef: CollectionReference = db.collection("Messages");
@@ -139,7 +140,7 @@ export const readMessages = onRequest(httpsOptions,
     const queryResults = await query;
     const messageDocs = queryResults.docs.map((doc) => doc.data());
 
-    response.send(messageDocs);
+    response.send({messages: messageDocs, dateOfQuery: now});
     logger.info("readMessages(...) COMPLETED", {structuredData: true});
   }
 );
