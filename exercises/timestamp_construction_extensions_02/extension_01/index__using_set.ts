@@ -5,6 +5,7 @@ import * as DataModel from "../../data_model/src";
 
 const app = admin.initializeApp();
 const httpsOptions = {cors: false, maxInstances: 2, region: ["us-east1"]};
+
 type CollectionReference = admin.firestore.CollectionReference<admin.firestore.DocumentData>;
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>;
 
