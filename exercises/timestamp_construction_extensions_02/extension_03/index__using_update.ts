@@ -137,3 +137,19 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
     logger.info("saveMessageWithTimestampFromFunctions(...) COMPLETED", {structuredData: true});
   }
 );
+
+export const readMessages = onRequest(httpsOptions,
+  async (request, response) => {
+    logger.info("readMessages(...) ENTERED", {structuredData: true});
+
+    const db = admin.firestore(app);
+    const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
+    const colRefTyped = messagesColDesc.getTypedCollection(ds);
+    const query = colRefTyped.get();
+    const queryResults = await query;
+    const messageDocs = queryResults.docs.map((doc) => doc.data());
+
+    response.send(messageDocs);
+    logger.info("readMessages(...) COMPLETED", {structuredData: true});
+  }
+);
