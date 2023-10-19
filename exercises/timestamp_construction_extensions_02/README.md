@@ -143,4 +143,28 @@ I personally see this better design, faster to implement, easier to maintain, le
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_04).
 
+## Extension 5) Replace IMessageWithDate and IMessageWithTimestamp with generic IMessage<T>
+
+Now that we know a little about generics, we are going to use generics to replace our two "MessageWith..." files and their contents with a single "Message" file that contains generic interfaces and functions that maintain THE EXACT SAME SET OF FUNCTIONALITY as our two files currently provide.
+
+So go try to do this and come back here if you have any problems...
+
+And now you are back here, great!
+
+In truth, I do not expect you to be able to do this extension. If you can, you are ahead of the curve, but if not, do not worry!
+
+Instead, I wanted you to TRY to do this extension so that you realize some of the complications that arise when using generics, especially in a non-reified type system (a type system that is not accessible at run-time, only at compile-time, because TypeScript is transpiled into JavaScript and actually excuted as JavaScript).
+
+If we were programming in C# in .NET (Microsoft technology), we would have all our declared types accessible via Reflection at run-time and could just check what type something is as the code actually executes. But since we are programming in TypeScript (actually, also Microsoft technology), we must resort to "tricks" to access type-ish information at run-time.
+
+_(As an aside, many developers look down on or distrust Microsoft... But I take a different perspective... I don't really trust ANY company, so to me Microsoft is no more or less trustworthy than any other... But I am incredibly appreciative of Microsoft technology, just as I am incredibly appreciative of Google technology.)_
+
+So if you tried, but were not quite able to implement this extension, please look at my solution, try to understand it, and try to write something like it yourself. But do not just copy it, try to actually understand it.
+
+And once you are ready, deploy it!
+
+Then call your four original HTTP Functions WITHOUT passing a value for the "id" parameter, as we want them to construct new objects.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_05).
+
 Copyright © 2023 Ryan Ehrenreich
