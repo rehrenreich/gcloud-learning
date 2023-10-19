@@ -54,4 +54,93 @@ The reason for including the "dateOfQuery" property is so that if you refresh th
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_02).
 
+## Extension 3) Use an Open Personal Archive™ CollectionDescriptor to get typed Message Documents
+
+Before you start this exercise, I am assuming you are using an Integrated Development Environment (IDE) that supports Intelligent Code Completion (see https://en.wikipedia.org/wiki/Intelligent_code_completion), such as IntelliSense in Visual Studio Code.
+
+In your "readMessages" HTTP function, just before you return your messages that you read, access the element in the messages array at index 0, and then type "." after it. I expect you see nothing, but what you want to see is the list of properties for MessageWithDate and/or MessageWithTimestamp.
+
+To make this actually happen, we will use one of the primary features provided by the Open Personal Archive™ (OPA) "base" package, namely the CollectionDescriptor. The CollectionDescriptor is a class that I wrote using generics (see https://www.typescriptlang.org/docs/handbook/2/generics.html) to automate most of the boilerplate code that one might write for accessing data in a Firestore Collection, as this code is very repetitive and actually repeating it over and over again makes your codebase less maintainable.
+
+In order for you to use the OPA CollectionDescriptor, I am going to tell you precisely the code that you need to add use it. At the top of your file, on the line just before you declare your "CollectionReference" and "DocumentReference" type aliases, please add the following code:
+
+```
+type MessageDocument = DataModel.IMessageWithDate | DataModel.IMessageWithTimestamp;
+type MessageQuerySet = OPA.QuerySet<MessageDocument>;
+type MessageConstructor = OPA.DefaultFunc<MessageDocument>;
+const messagesColDesc = new OPA.CollectionDescriptor<MessageDocument, MessageQuerySet, MessageConstructor>("Message", "Messages", false, (cd) => new OPA.QuerySet<MessageDocument>(cd));
+```
+
+What does this code mean?
+
+On the first line, we declare a type alias named "MessageDocument" that can be either an IMessageWithDate or an IMessageWithTimestamp. On the second line, we declare a type alias for our OPA QuerySet for documents of type "MessageDocument" (I will explain the QuerySet in the next extension, so please be patient). On the third line, I use a type alias to circumvent a contruction requirement of the CollectionDescriptor, so just ignore this for now. On the fourth line, I instantiate a new CollectionDescriptor corresponding to our "Messages" Collection in our Firestore database.
+
+Now, update your existing "CollectionReference" and "DocumentReference" type aliases to the following code:
+
+```
+type CollectionReference = admin.firestore.CollectionReference<MessageDocument>;
+type DocumentReference = admin.firestore.DocumentReference<MessageDocument>;
+```
+
+What does this code mean?
+
+The only change made here is replaceing "admin.firestore.DocumentData" with "MessageDocument" for the generic type parameter (i.e. the text between the "&lt;" and "&gt;" characters). So before, we were using the standard Firestore "DocumentData" to fill the generic type parameter, but now we are using our type alias "MessageDocument" (which is really just shorthand for using "DataModel.IMessageWithDate | DataModel.IMessageWithTimestamp").
+
+In a second, you will see why this is important... But first, I need you to update the line of code in each HTTP Function where you declare your "colRef" constant to replace
+
+```
+const colRef: CollectionReference = db.collection("Messages");
+```
+
+with
+
+```
+const ds = (({db} as unknown) as OPA.IDataStorageState);
+const colRefTyped: CollectionReference = messagesColDesc.getTypedCollection(ds);
+```
+
+What does this code mean?
+
+Well, the first line is a shortcut to circumvent a longer block of code I would actually use so that we can simplify the code for this specific example. The second line uses the "Messages" CollectionDescriptor to get a strongly typed CollectionReference, which is very important. If you are interested you can look at the OPA "base" package code to see how I do this, but that is not mandatory.
+
+Why is getting a strongly typed CollectionReference very important?
+
+Let's revisit that first step I asked you to do. In your "readMessages" HTTP function, just before you return your messages that you read, access the element in the messages array at index 0, and then type "." after it. Now you should see what you wanted to see, the list of properties for MessageWithDate and/or MessageWithTimestamp.
+
+This alone is very important, but let's see what else we can get out of the CollectionDescriptor in the next extension.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_03).
+
+## Extension 4) Use an Open Personal Archive™ CollectionDescriptor and QuerySet to automate query code
+
+If you look at how to construct queries to a Firestore database, the Firestore client library that we are programming for basically implements the "Query Object" design pattern (see https://martinfowler.com/eaaCatalog/queryObject.html). You dynamically apply query operators to fields, providing the values relevant to your query when necessary.
+
+As a result, often the query code that you use to read data from one Collection is substantially similar or identical to the query code that you use to read data from another Collection. This is exactly the type of situation where generics are useful for automating repetitive code.
+
+We could create a bunch of helper functions to automate common query code. Then we could implement the "Repository" design pattern (see https://martinfowler.com/eaaCatalog/repository.html) on top of each Firestore Collection (i.e. one Repository class per Collection) to abstract away the implementation details that are specific to the Firestore database. Then our query code would be encapsulated (or hidden) behind the "Repository" in the view of downward-calling code (aka client code, for example, a function trying to do something useful, such as read and return Messages).
+
+But I prefer an even better approach... The CollectionDescriptor plus the QuerySet together are the generic implementation of the "Repository" design pattern... I implement them once, and re-use them over and over again by writing code similar to the few lines of code that I instructed you to add in the last extension.
+
+To be clear, I put ALL of my Firestore query code within clearly named functions within the QuerySet base class, or withing Document-specific sub-classes of QuerySet when necessary (_there is only one place in the whole OPA codebase where this rule is broken, and addressing that is one of the future tasks that I plan to delegate to you_).
+
+Why do this?
+
+Well, for the downward-calling code (aka client code) that accesses information stored within our system, we want that code to use the "Repository" pattern so that code is unaware of the implementation details of which type of database we are actually using. Could be Firestore, could be MongoDB, could be SQL Server. With few exceptions, the client code does not need to know (_and with some effort, those few exceptions can be abstracted away, it is just not worth doing so until the need actually arises_).
+
+Behind the "Repository" design pattern is the "Storage Strategy" design pattern, which does the database-vendor-specific work necessary to actually access information. Currently, I do not implement the "Storage Strategy" design pattern explicitly because I really want to use Firestore as the database and have no requirement to support another type of database.
+
+But if for some reason a requirement arose to support another database vendor, I would 1) define an IOpaStorageStrategy&lt;DocType&gt;, 2) move the existing Firestore data access code into an OpaFirestoreStorageStrategy&lt;DocType&gt; class, 3) implement a OpaOtherVendorStorageStrategy&lt;DocType&gt; for the other database vendor, and 4) configure the CollectionDescriptor and QuerySet to use an instance of IOpaStorageStrategy&lt;DocType&gt; to perform data access.
+
+I do not expect you to understand fully what this all means now... I just want you to be aware that I implemented this code this way for very specific reasons.
+
+All I want you to understand right now is that because I already implemented a generic CollectionDescriptor and QuerySet, you can now replace your code to query to the "Messages" Collection in your "readMessages" function with the following line of code:
+
+```
+const messageDocs = await messagesColDesc.queries.getAll(ds);
+```
+
+I personally see this better design, faster to implement, easier to maintain, less likely to cause bugs, easier to test... All around better than writing the same general Firestore query code over and over again throughout the codebase.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_04).
+
 Copyright © 2023 Ryan Ehrenreich
