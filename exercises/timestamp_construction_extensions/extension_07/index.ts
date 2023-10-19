@@ -57,7 +57,7 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
       };
       await docRef.set(messageDoc, {merge: true});
     } else {
-      messageDoc = DataModel.createMessageWithDate(docId, message);
+      messageDoc = DataModel.createMessageWithDate(docId, message, now);
       await colRef.add(messageDoc);
     }
 
@@ -117,7 +117,7 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
       };
       await docRef.set(messageDoc, {merge: true});
     } else {
-      messageDoc = DataModel.createMessageWithTimestamp(docId, message);
+      messageDoc = DataModel.createMessageWithTimestamp(docId, message, now);
       await colRef.add(messageDoc);
     }
 
