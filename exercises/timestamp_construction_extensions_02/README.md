@@ -44,4 +44,14 @@ I hope this convinces you that Firestore is the best Document Database to use! S
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_01).
 
+## Extension 2) Create a new HTTP Function that returns all existing Messages
+
+Now it is time to implement a new HTTP Function to read all the existing Messages, so that we no longer need to use the Firestore WebUI to see what data exists in our Firestore database. Please implement this HTTP Function and name it "readMessages".
+
+But before you do so, please note that I request that you structure the return value as an object that contains two properties: 1) the "messages" property that is set to an array containing all extisting Messages and 2) the "dateOfQuery" property that is set to the date-time when the reading of data actually took place.
+
+The reason for including the "dateOfQuery" property is so that if you refresh this HTTP Function but no Messages have been added since your last query, there is still a value (i.e. "dateOfQuery") that changes in the result.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_02).
+
 Copyright © 2023 Ryan Ehrenreich
