@@ -53,7 +53,7 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
-    const colRefTyped = messagesColDesc.getTypedCollection(ds);
+    const colRefTyped: CollectionReference = messagesColDesc.getTypedCollection(ds);
     const docRefTyped: DocumentReference = (request.query.id) ? colRefTyped.doc(request.query.id as string) : colRefTyped.doc();
     const docId = docRefTyped.id;
     const docSnap = await docRefTyped.get();
@@ -83,7 +83,7 @@ export const saveMessageWithTimestampFromDataModel = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
-    const colRefTyped = messagesColDesc.getTypedCollection(ds);
+    const colRefTyped: CollectionReference = messagesColDesc.getTypedCollection(ds);
     const docRefTyped: DocumentReference = (request.query.id) ? colRefTyped.doc(request.query.id as string) : colRefTyped.doc();
     const docId = docRefTyped.id;
     const docSnap = await docRefTyped.get();
@@ -115,7 +115,7 @@ export const saveMessageWithTimestampFromFunctions = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
-    const colRefTyped = messagesColDesc.getTypedCollection(ds);
+    const colRefTyped: CollectionReference = messagesColDesc.getTypedCollection(ds);
     const docRefTyped: DocumentReference = (request.query.id) ? colRefTyped.doc(request.query.id as string) : colRefTyped.doc();
     const docId = docRefTyped.id;
     const docSnap = await docRefTyped.get();
@@ -145,7 +145,7 @@ export const readMessages = onRequest(httpsOptions,
 
     const db = admin.firestore(app);
     const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
-    const colRefTyped = messagesColDesc.getTypedCollection(ds);
+    const colRefTyped: CollectionReference = messagesColDesc.getTypedCollection(ds);
     const query = colRefTyped.get();
     const queryResults = await query;
     const messageDocs = queryResults.docs.map((doc) => doc.data());
