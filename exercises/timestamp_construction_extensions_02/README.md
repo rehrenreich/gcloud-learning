@@ -181,4 +181,20 @@ So make your choice, strip out all the unnecessry and confusing extra code, dele
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_06).
 
+## Extension 7) Move create and update Message code into QuerySet sub-class
+
+Now our code is beginning to look much more comprehensible. But still, in our original HTTP Functions, we have many lines of code that do the work of creating and updating Messages that are repeated instead of re-used.
+
+Now we will resolve this.
+
+To do so, in the "Message.ts" file, create a MessageQuerySet that sub-classes the OPA QuerySet<T> for the "Message" Document Type.
+
+Inside the MessageQuerySet, add two functions: 1) "create" and 2) "update".
+
+Then refactor your existing HTTP Functions so that as much of the code as possible to create and update Messages is moved inside of the MessageQuerySet.
+
+Once you are done, redeploy your code and check that you HTTP Functions work both WITH and WITHOUT a value for the "id" parameter (i.e. check BOTH "create" AND "update" actually work properly).
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_07).
+
 Copyright © 2023 Ryan Ehrenreich
