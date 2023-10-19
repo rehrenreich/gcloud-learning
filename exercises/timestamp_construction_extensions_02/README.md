@@ -167,4 +167,18 @@ Then call your four original HTTP Functions WITHOUT passing a value for the "id"
 
 If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_05).
 
+## Extension 6) Make a design decision... Pick EITHER Date OR Timestamp
+
+We just spent significant time making our single generic IMessage interface work properly, but what did it really get us?
+
+In this specific instance, it got us lots of confusing code and a little more time to delay the decision that we have been avoiding this entire time... Do we want to use "Date" or "Timestamp" to encode date-time information?
+
+What? This whole time I have been using this example to point out other issues and concerns, and I really just wanted you to pick a Date or a Timestamp?
+
+Yes... Because there are many other concerns that I need you to be aware of, but in designing actually Document Types that I use for real in real projects... I never would have got into this situation in the first place... I would have instead chosen to create IMessage and IMessagePartial interfaces that use EITHER Date OR Timestamp... But the journey to get here was worth it in the long-run... Trust me!
+
+So make your choice, strip out all the unnecessry and confusing extra code, delete the two now-irrelevant HTTP Functions, deploy your code, check it works, then come back here.
+
+If you are confused, if your code did not work as described, or if you just want to see my solution, you can see my code for this extension [here](https://github.com/rehrenreich/gcloud-learning/tree/main/exercises/timestamp_construction_extensions_02/extension_06).
+
 Copyright © 2023 Ryan Ehrenreich
