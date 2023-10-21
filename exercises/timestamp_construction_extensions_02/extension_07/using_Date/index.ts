@@ -73,7 +73,7 @@ export const saveMessageWithDateFromFunctions = onRequest(httpsOptions,
 export const readMessages = onRequest(httpsOptions,
   async (request, response) => {
     logger.info("readMessages(...) ENTERED", {structuredData: true});
-    const now = admin.firestore.Timestamp.now();
+    const now = new Date();
 
     const db = admin.firestore(app);
     const ds = (({db} as unknown) as OPA.IDataStorageState); // NOTE: This is a hacky shortcut and NOT intended for production codebase
