@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GCloud Learning</title>
+  <meta name="description" content="Resources for learning how to build enterprise application using the Google Cloud and Firebase platforms">
+  <meta name="keywords"
+        content="google, cloud, gcloud, firebase, platform, console, open, source, academic, software, enterprise, application, architecture, design, patterns, text, audio, video, images, media, searchable, search, cite, share, publish, permission, web, page">
+  <meta name="author" content="Ryan Stephen Ehrenreich">
+  <meta name="copyright" content="Copyright © 2023 Ryan Stephen Ehrenreich">
+  <style>
+    body {
+      font-size: 3vw;
+      line-height: 6vw;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><a href="https://github.com/rehrenreich/gcloud-learning">GCloud Learning</a></h1>
+  <p>
+    This repository contains tips, tricks, quirks, and exercises I would like to share based on my past experience using Firebase and other Google Cloud products.
+  </p>
+  <p>
+    Much of this learning has come through my development efforts for the <a href="https://github.com/vkehren/open-personal-archive">Open Personal Archive™</a> project, of which I am the main
+    contributor. Please note, the organization and structure of the Open Personal Archive™ codebase demonstrates my general approach to building applications using enterprise application architecture
+    (aka tiered architecture), but specifically applied to the products and technologies offered through the Google Cloud.
+  </p>
+  <p>
+    Interesting question... What is the difference between a "layer" and a "tier" in software architecture?
+  </p>
+  <p>
+    Thanks to the guidance and advice of many past mentors, I offer you this answer:
+  </p>
+  <p>
+  <ol>
+    <li>A "tier" is a grouping of one or more "layers (i.e. a "tier" can contain multiple "layers", but not vice-versa).</li>
+    <li>A "layer" denotes a "package" or "assembly" boundary, while a "tier" denotes a "process" boundary (and often, but not necessarily, a "machine" boundary).</li>
+    <li>Across "tiers", there may be a duplex channel of communication, but within a tier, the imports of code across layers should be strictly hierarchical (i.e. there should NOT be any cyclic
+      dependencies between layers, and organizing your code into separate packages helps to enforce this).</li>
+  </ol>
+  </p>
+  <p>
+    In a Microsoft .NET enterprise application, your "Data Tier" might be a SQL Server database, your "Application Tier" might be a WCF application, and your "Presentation Tier" might be a WPF
+    application. Inside your WCF application, you might have different layers, such as Data Access, Business Logic, and Services.
+  </p>
+  <p>
+    In Open Personal Archive™, the "Data Tier" is a Firestore database, the "Application Tier" is a set of Cloud Functions, and the "Presentation Tier" is a website. Inside the "Application Tier", the
+    code is organized into packages by layer, with the layers being "base" (which is intended to be useable "off-the-shelf" for any other project you develop), "data model", "domain logic", and
+    "functions".
+  </p>
+  <p>
+    Personally, I really like the Google Cloud suite of products and I am very happy to share my own perspectives on using them, so I hope you enjoy reviewing the code that I put in this repository.
+  </p>
+  <p>
+    Thank you and good luck!
+  </p>
+  <p>
+    Ryan Ehrenreich
+  </p>
+  <p>
+    Copyright © 2023 <a href="https://ryanehrenreich.com/"><b>Ryan Stephen Ehrenreich</b></a>
+  </p>
+</body>
+
+</html>
